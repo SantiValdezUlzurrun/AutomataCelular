@@ -1,2 +1,5 @@
 .stack-work/
 *~
+tags
+stack.yaml.lock
+dist/
