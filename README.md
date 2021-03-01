@@ -11,17 +11,25 @@ Proyecto de una coleccion de [automatas celulares](https://en.wikipedia.org/wiki
 
 ## Instalacion de Dependencias
 
-### \*nix
+### Stack
 
-- stack:
+#### \*nix
 
 ```bash
 	curl -sSL https://get.haskellstack.org/ | sh
 ```
 
-### Ventanas
+#### Ventanas
 
  [instalador de stack](https://get.haskellstack.org/stable/windows-x86_64-installer.exe)
+
+### GLUT
+
+#### Debian/Ubuntu
+
+```bash
+	sudo apt-get install freeglut3
+```
 
 ## Ejecucion
 
