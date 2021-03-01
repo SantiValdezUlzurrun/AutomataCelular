@@ -9,19 +9,37 @@ import System.Random
 data Celula = Viva | Muerta deriving (Eq, Show)
 type Tablero = [[Celula]]
 
-genInicial :: Int -> Tablero
-genInicial n = [map f lista]
+n :: Int
+n = 100
+
+anchoPantalla :: Int
+anchoPantalla = 640
+
+altoPantalla :: Int
+altoPantalla = 480
+
+anchoCelula :: Float
+anchoCelula = fromIntegral anchoPantalla / fromIntegral n
+
+altoCelula :: Float
+altoCelula = fromIntegral altoPantalla / fromIntegral n
+
+genInicial :: Int -> [Int] -> Tablero
+genInicial n lista = [map f lista]
 	where 
 		f = (\x -> if x == 1 then Viva else Muerta)
-		lista = [1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1]
 
 
 mostrarModelo :: Tablero -> Picture
-mostrarModelo tablero = pictures $ map pictures imagenesEnPos
+mostrarModelo tablero = translate (fromIntegral anchoPantalla * (-0.5))
+                        		  (fromIntegral altoPantalla * 0.5) 
+							   	  escena
+							   
 	where
 		cantCol = length tablero
 		filasConPosRelY = zip tablero (take cantCol [1..cantCol])
 		imagenesEnPos = map mostrarFila filasConPosRelY
+		escena = pictures $ map pictures imagenesEnPos
 
 mostrarFila :: ([Celula], Int) -> [Picture]
 mostrarFila (celulas, posRelY) = map trasladar imagenesConPosRel
@@ -35,8 +53,8 @@ mostrarFila (celulas, posRelY) = map trasladar imagenesConPosRel
 trasladar :: (Picture, (Int, Int)) -> Picture
 trasladar (imagen, (posRelX, posRelY)) = translate x y imagen 
 	where
-		x = 10.0 * fromIntegral posRelX
-		y = -10.0 * fromIntegral posRelY
+		x = anchoCelula * fromIntegral posRelX
+		y = -altoCelula * fromIntegral posRelY
 
 imagenCelula :: Celula -> Picture
 imagenCelula cel = if cel == Viva 
@@ -47,13 +65,13 @@ colorCelulaViva :: Color
 colorCelulaViva = makeColorI 255 50 50 255
 
 imagenCelulaViva :: Picture
-imagenCelulaViva = pictures [color colorCelulaViva $ rectangleSolid 10 10]
+imagenCelulaViva = pictures [color colorCelulaViva $ rectangleSolid anchoCelula altoCelula]
 
 colorCelulaMuerta :: Color
 colorCelulaMuerta = makeColorI 0 0 255 255
 
 imagenCelulaMuerta :: Picture
-imagenCelulaMuerta = pictures [color colorCelulaMuerta $ rectangleSolid 10 10]
+imagenCelulaMuerta = pictures [color colorCelulaMuerta $ rectangleSolid anchoCelula altoCelula]
 
 
 -- Avanza de generacion segun la regla 110
