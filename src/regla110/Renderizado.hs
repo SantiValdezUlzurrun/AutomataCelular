@@ -4,7 +4,6 @@ import Graphics.Gloss
 import Graphics.Gloss.Data.Picture
 
 import Modelo
-import Regla110
 
 {-- Numero de celulas --}
 n :: Int
@@ -16,14 +15,17 @@ anchoPantalla = 640
 altoPantalla :: Int
 altoPantalla = 480
 
+ventana :: Display
+ventana = InWindow "Regla 110" (anchoPantalla, altoPantalla) (100, 100)
+
 anchoCelula :: Float
 anchoCelula = fromIntegral anchoPantalla / fromIntegral n
 
 altoCelula :: Float
 altoCelula = fromIntegral altoPantalla / fromIntegral n
 
-genInicial :: Int -> [Int] -> Tablero
-genInicial n lista = [map f lista]
+genInicial :: [Int] -> Tablero
+genInicial lista = [map f lista]
 	where 
 		f = (\x -> if x == 1 then Viva else Muerta)
 
@@ -34,8 +36,9 @@ mostrarModelo tablero = translate (fromIntegral anchoPantalla * (-0.5))
 							   	  escena
 							   
 	where
-		cantCol = length tablero
-		filasConPosRelY = zip tablero (take cantCol [1..cantCol])
+		tablero' = drop ((length tablero) - n) tablero
+		cantCol = length tablero'
+		filasConPosRelY = zip tablero' (take cantCol [1..cantCol])
 		imagenesEnPos = map mostrarFila filasConPosRelY
 		escena = pictures $ map pictures imagenesEnPos
 
@@ -60,13 +63,13 @@ imagenCelula cel = if cel == Viva
 				   else imagenCelulaMuerta
 
 colorCelulaViva :: Color
-colorCelulaViva = makeColorI 255 50 50 255
+colorCelulaViva = makeColorI 100 160 100 255
 
 imagenCelulaViva :: Picture
 imagenCelulaViva = pictures [color colorCelulaViva $ rectangleSolid anchoCelula altoCelula]
 
 colorCelulaMuerta :: Color
-colorCelulaMuerta = makeColorI 0 0 255 255
+colorCelulaMuerta = makeColorI 40 40 40 255
 
 imagenCelulaMuerta :: Picture
 imagenCelulaMuerta = pictures [color colorCelulaMuerta $ rectangleSolid anchoCelula altoCelula]
