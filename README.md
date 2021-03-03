@@ -16,7 +16,7 @@ Proyecto de una coleccion de [automatas celulares](https://en.wikipedia.org/wiki
 #### \*nix
 
 ```bash
-	curl -sSL https://get.haskellstack.org/ | sh
+curl -sSL https://get.haskellstack.org/ | sh
 ```
 
 #### Ventanas
@@ -28,13 +28,13 @@ Proyecto de una coleccion de [automatas celulares](https://en.wikipedia.org/wiki
 #### Debian/Ubuntu
 
 ```bash
-	sudo apt-get install freeglut3
+sudo apt-get install freeglut3
 ```
 
 ## Ejecucion
 
 ```bash
-    stack run
+stack run
 ```
 
 ## Licencia
