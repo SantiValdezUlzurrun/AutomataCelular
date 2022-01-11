@@ -31,6 +31,12 @@ curl -sSL https://get.haskellstack.org/ | sh
 sudo apt-get install freeglut3
 ```
 
+#### Fedora
+
+```bash
+sudo yum install freeglut-devel
+```
+
 ## Ejecucion
 
 ```bash
